@@ -16,30 +16,36 @@
             <img src="images/hamster1.gif" />
         </section>
         <section class="code">
-            <nav></nav>
-            <article>
+            <nav>
+                <!-- will add tabbed nav here -->
+            </nav>
+            <article id="vanilla">
                 <h1>Vanilla (mmm, vanilla...)</h1>
-                <ul>
+                <!-- <ul>
                     <li>garbage collection</li>
                     <li>big calc</li>
                     <li>localstorage</li>
                     <li>AJAX</li>
-                </ul>
+                </ul> -->
                 <div>
                     <h2>Garbage collection</h2>
                 </div>
                 <div id="vanillacpu">
-                    <h2>CPU intensity increases</h2>
+                    <h2>CPU intensity increases!!</h2>
                     <p>If we run CPU intensive, thread-hogging processes you'll see jank</p>
 
                     <button data-size="10000000" data-handler="bigCalc">Some Jank</button>
                     <button data-size="100000000" data-handler="bigCalc">Such Jank, much wow</button>
 
                 </div>
-                <div>
+                <div id="vanillastorage">
                     <h2>localstorage - storage, for *local* people</h2>
+                    <p>Even browser APIs can hog the thread</p>
+
+                    <button data-size="1000" data-handler="storeIt">Some Jank</button>
+                    <button data-size="10000" data-handler="storeIt">Such Jank, much wow</button>
                 </div>
-                <div>
+                <div id="vanillaajax">
                     <h2>AJAX - tough on Greece</h2>
                 </div>
             </article>
