@@ -1,0 +1,23 @@
+{
+  "name": "webworkermessing",
+  "version": "1.0.0",
+  "description": "web and service worker example code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlennox/webworkermessing.git"
+  },
+  "keywords": [
+    "webworker",
+    "serviceworker"
+  ],
+  "author": "mlennox",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlennox/webworkermessing/issues"
+  },
+  "homepage": "https://github.com/mlennox/webworkermessing#readme"
+}
