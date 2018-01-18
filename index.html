@@ -6,14 +6,15 @@
 </head>
 
 <body>
+    <div id="maxHeadroom"></div>
     <main>
         <section class="gyrating-rodents">
             <img src="images/chapeauxHamsters.gif" />
             <img src="images/gleefulHamster.gif" />
-            <img src="images/walkingHamster.gif" />
             <img src="images/crunkingHamster.gif" />
             <img src="images/hamster-dance-gif-6.gif" />
             <img src="images/hamster1.gif" />
+            <p id="notifier">kkjhkj</p>
         </section>
         <section class="code">
             <nav>
@@ -47,6 +48,17 @@
                 </div>
                 <div id="vanillaajax">
                     <h2>AJAX - tough on Greece</h2>
+                    <p>Requesting a bunch of JSON and parsing it to return to the caller</p>
+
+                    <button data-size="10" data-handler="junkFetch">Some Jank</button>
+                    <button data-size="50" data-handler="junkFetch">Such Jank, much wow</button>
+                </div>
+                <div id="vanillafetch">
+                    <h2>Fetch! No take, only throw</h2>
+                    <p>Fetch and parse a bunch of JSON using the shiny fetch API</p>
+
+                    <button data-size="20" data-handler="swapiAjax">Some Jank</button>
+                    <button data-size="200" data-handler="swapiAjax">Such Jank, much wow</button>
                 </div>
             </article>
         </section>
