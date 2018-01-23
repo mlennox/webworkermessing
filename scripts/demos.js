@@ -2,6 +2,12 @@ class Demos {
   constructor() {
     this.someDoc = this.generateDoc(1000);
     this.notifier = document.getElementById("notifier");
+    this.worker = new Worker("worker.js");
+    this.worker.onmessage = handleWorkerMessage;
+    // = function(e) {
+    // 	result.textContent = e.data;
+    // 	console.log('Message received from worker');
+    // };
   }
 
   setupTabbing() {
@@ -84,6 +90,20 @@ class Demos {
     size = size || 10000;
     await fn.call(this, size);
     this.notify(`${name} : for ${size} it took ${Date.now() - start}ms`);
+  }
+
+  workerify(fn, name, size) {
+    let message = {
+      start: Date.now(),
+      fn: data => fn,
+      size: size,
+      name: name
+    };
+    this.worker.postMessage(message);
+  }
+
+  handleWorkerMessage(message) {
+    this.notify(message.data.reply);
   }
 
   generateDoc(limit) {
@@ -188,6 +208,15 @@ class Demos {
 
   async async_fetch(size) {
     await this.asyncifier(this.junkFetch, "async_fetch", size);
+  }
+
+  workers_cpu(size) {
+    let fn = data => {
+      this.bigCalc(data.size);
+      return `${data.name} : for ${data.size} it took ${Date.now() -
+        data.start}ms`;
+    };
+    this.workerify(this.bigCalc, "workers_cpu", size);
   }
 }
 
