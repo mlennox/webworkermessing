@@ -68,10 +68,21 @@ main {
   list-style-type: none;
 }
 
-#tabber li:hover,
-#tabber li.open {
+#tabber li:hover {
   background: white;
   color: black;
+  top: 0.1rem;
+  left: 0.1rem;
+  box-shadow: black 0.1rem 0.1rem 0.1rem;
+}
+
+#tabber li.active,
+#tabber li:active {
+  background: white;
+  color: black;
+  top: 0.1rem;
+  left: 0.1rem;
+  box-shadow: inset black 0.1rem 0.1rem 0.1rem;
 }
 
 .gyrating-rodents,
@@ -88,8 +99,12 @@ main {
   padding: 1rem;
 }
 
-#code article.hidden {
+#code article {
   display: none;
+}
+
+#code article.active {
+  display: inherit;
 }
 
 .gyrating-rodents {

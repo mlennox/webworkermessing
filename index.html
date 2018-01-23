@@ -14,65 +14,135 @@
             <img src="images/crunkingHamster.gif" />
             <img src="images/hamster-dance-gif-6.gif" />
             <img src="images/hamster1.gif" />
-            <p id="notifier">kkjhkj</p>
+            <p id="notifier"></p>
         </section>
         <section id="code">
             <nav>
                 <ul id="tabber">
-                    <li data-target="vanilla">Vanilla</li>
+                    <li data-target="vanilla" class="active">Vanilla</li>
                     <li data-target="promises">Promises</li>
                     <li data-target="async">Async</li>
                     <li data-target="workers">Workers</li>
                 </ul>
             </nav>
-            <article id="vanilla">
+            <article id="vanilla" class="active">
                 <h1>Vanilla (mmm, vanilla...)</h1>
-                <div>
-                    <h2>Garbage collection</h2>
-                    <p>???</p>
-                </div>
-                <div id="vanillacpu">
+                <section data-handler="cpu">
                     <h2>CPU intensity increases!!</h2>
                     <p>If we run CPU intensive, thread-hogging processes you'll see jank</p>
 
-                    <button data-size="10000000" data-handler="bigCalc">Some Jank</button>
-                    <button data-size="100000000" data-handler="bigCalc">Such Jank, much wow</button>
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
 
-                </div>
-                <div id="vanillastorage">
+                </section>
+                <section data-handler="storage">
                     <h2>localstorage - storage, for *local* people</h2>
                     <p>Even browser APIs can hog the thread</p>
 
-                    <button data-size="5000" data-handler="storeIt">Some Jank</button>
-                    <button data-size="10000" data-handler="storeIt">Such Jank, much wow</button>
-                </div>
-                <div id="vanillaajax">
+                    <button data-size="5000">Some Jank</button>
+                    <button data-size="10000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="ajax">
                     <h2>AJAX - tough on Greece</h2>
                     <p>Requesting a bunch of JSON and parsing it to return to the caller</p>
 
-                    <button data-size="500" data-handler="xhrReq">Some Jank</button>
-                    <button data-size="1000" data-handler="xhrReq">Such Jank, much wow</button>
-                </div>
-                <div id="vanillafetch">
-                    <h2>Fetch! No take, only throw</h2>
-                    <p>Fetch and parse a bunch of JSON using the shiny fetch API</p>
-
-                    <button data-size="500" data-handler="junkFetch">Some Jank</button>
-                    <button data-size="1000" data-handler="junkFetch">Such Jank, much wow</button>
-                </div>
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
             </article>
             <article id="promises">
                 <h1>Promised me a miracle</h1>
-                <div id="promisescpu">
+                <section data-handler="cpu">
                     <h2>CPU intensity increases!!</h2>
                     <p>Even with promises janky, CPU-hogging happens</p>
 
-                    <button data-size="10000000" data-handler="bigCalcPromised">Some Jank</button>
-                    <button data-size="100000000" data-handler="bigCalcPromised">Such Jank, much wow</button>
-                </div>
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="storage">
+                    <h2>Localstorage</h2>
+                    <p>As blocking as that kitchen storage drawer filled with dishwasher instructions booklets</p>
+
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="ajax">
+                    <h2>AJAX - tough on Greece</h2>
+                    <p>Requesting a bunch of JSON and parsing it to return to the caller</p>
+
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="fetch">
+                    <h2>Fetch - promisingly</h2>
+                    <p>Fetch and parse a bunch of JSON using the shiny fetch API</p>
+
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
             </article>
-            <article id="async"></article>
-            <article id="workers"></article>
+            <article id="async">
+                <h1>Async! Let it in!</h1>
+                <section data-handler="cpu">
+                    <h2>CPU intensity increases!!</h2>
+                    <p>Async, it does nothing!</p>
+
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="storage">
+                    <h2>Localstorage</h2>
+                    <p>A sink is not for storage</p>
+
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="ajax">
+                    <h2>Ajax, Async, a bowl</h2>
+                    <p>Still slow</p>
+
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="fetch">
+                    <h2>Fetch</h2>
+                    <p>Fetch and parse a bunch of JSON using the shiny fetch API</p>
+
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
+            </article>
+            <article id="workers">
+                <h1>Workers</h1>
+                <section data-handler="cpu">
+                    <h2>CPU intensity increases!!</h2>
+                    <p>Async, it does nothing!</p>
+
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="storage">
+                    <h2>Localstorage</h2>
+                    <p>A sink is not for storage</p>
+
+                    <button data-size="10000000">Some Jank</button>
+                    <button data-size="100000000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="ajax">
+                    <h2>Ajax, Async, a bowl</h2>
+                    <p>Still slow</p>
+
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
+                <section data-handler="fetch">
+                    <h2>Fetch</h2>
+                    <p>Fetch and parse a bunch of JSON using the shiny fetch API</p>
+
+                    <button data-size="500">Some Jank</button>
+                    <button data-size="1000">Such Jank, much wow</button>
+                </section>
+            </article>
         </section>
     </main>
 

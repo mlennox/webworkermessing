@@ -41,12 +41,11 @@ class Demos {
 
   changeTab(focus_tab) {
     for (let tab of Object.keys(this.tabs)) {
-      console.log(tab);
       this.tabs[tab].nav.className = "";
-      this.tabs[tab].content.className = "hidden";
+      this.tabs[tab].content.className = "";
     }
-    this.tabs[focus_tab].nav.className = "open";
-    this.tabs[focus_tab].content.className = "";
+    this.tabs[focus_tab].nav.className = "active";
+    this.tabs[focus_tab].content.className = "active";
   }
 
   /**
@@ -56,44 +55,35 @@ class Demos {
    */
   onBubbledClick(containerIds) {
     containerIds.forEach(id => {
-      document.getElementById(id).addEventListener(
-        "click",
-        event => {
-          if (event.target.tagName === "BUTTON") {
-            let size = event.target.dataset.size;
-            let handlerName = event.target.dataset.handler;
-            this[handlerName](size);
-          }
-        },
-        false
-      );
+      document.getElementById(id).addEventListener("click", event => {
+        if (event.target.tagName === "BUTTON") {
+          let handler_prefix = event.currentTarget.id;
+          let handler_suffix = event.target.parentElement.dataset.handler;
+          let size = event.target.dataset.size;
+          this[`${handler_prefix}_${handler_suffix}`](size);
+        }
+      });
     });
   }
 
-  bigCalc(size) {
-    this.notify();
-    const start = Date.now();
-    size = size || 10000;
-    for (let i = 0; i < size; i++) {
-      Math.random();
-    }
-    this.notify(`bigCalc : for ${size} it took ${Date.now() - start}ms`);
-  }
-
-  bigCalcPromised(size) {
+  promiser(fn, name, size) {
     this.notify();
     const start = Date.now();
     size = size || 10000;
     new Promise((res, rej) => {
-      for (let i = 0; i < size; i++) {
-        Math.random();
-      }
+      fn.call(this, size);
       res();
     }).then(() => {
-      this.notify(
-        `bigCalcPromised : for ${size} it took ${Date.now() - start}ms`
-      );
+      this.notify(`${name} : for ${size} it took ${Date.now() - start}ms`);
     });
+  }
+
+  async asyncifier(fn, name, size) {
+    this.notify();
+    const start = Date.now();
+    size = size || 10000;
+    await fn.call(this, size);
+    this.notify(`${name} : for ${size} it took ${Date.now() - start}ms`);
   }
 
   generateDoc(limit) {
@@ -108,35 +98,96 @@ class Demos {
     return JSON.stringify(doc);
   }
 
+  // base operations --------------------
+
+  bigCalc(size) {
+    size = size || 10000;
+    for (let i = 0; i < size; i++) {
+      Math.random();
+    }
+  }
+
   storeIt(size) {
-    this.notify();
-    const start = Date.now();
     size = size || 1000;
     for (let i = 0; i < size; i++) {
       localStorage.setItem(`${size}`, this.someDoc);
     }
-    this.notify(`storeIt : for ${size} it took ${Date.now() - start}ms`);
-  }
-
-  junkFetch(size) {
-    const start = Date.now();
-    size = size || 100;
-    for (let i = 0; i < size; i++) {
-      fetch("/junk/").then(data => {});
-    }
-    this.notify(`junkFetch : for ${size} it took ${Date.now() - start}ms`);
   }
 
   xhrReq(size) {
-    this.notify();
-    const start = Date.now();
     size = size || 1000;
     let request = new XMLHttpRequest();
     for (let i = 0; i < size; i++) {
       request.open("GET", "/junk/", true);
       request.send(null);
     }
-    this.notify(`xhrReq : for ${size} it took ${Date.now() - start}ms`);
+  }
+
+  junkFetch(size) {
+    size = size || 100;
+    for (let i = 0; i < size; i++) {
+      fetch("/junk/").then(data => {});
+    }
+  }
+
+  // example tester functions --------------------
+
+  vanilla_cpu(size) {
+    this.notify();
+    const start = Date.now();
+    this.bigCalc(size);
+    this.notify(`vanilla_cpu : for ${size} it took ${Date.now() - start}ms`);
+  }
+
+  vanilla_storage(size) {
+    this.notify();
+    const start = Date.now();
+    this.storeIt(size);
+    this.notify(
+      `vanilla_storage : for ${size} it took ${Date.now() - start}ms`
+    );
+  }
+
+  vanilla_ajax(size) {
+    this.notify();
+    const start = Date.now();
+    this.xhrReq(size);
+    this.notify(`vanilla_ajax : for ${size} it took ${Date.now() - start}ms`);
+  }
+
+  promises_cpu(size) {
+    this.promiser(this.bigCalc, "promises_cpu", size);
+  }
+
+  promises_storage(size) {
+    this.promiser(this.storeIt, "promises_storage", size);
+  }
+
+  promises_ajax(size) {
+    this.promiser(this.xhrReq, "promises_ajax", size);
+  }
+
+  promises_fetch(size) {
+    this.notify();
+    const start = Date.now();
+    this.junkFetch(size);
+    this.notify(`vanilla_fetch : for ${size} it took ${Date.now() - start}ms`);
+  }
+
+  async async_cpu(size) {
+    await this.asyncifier(this.bigCalc, "async_cpu", size);
+  }
+
+  async async_storage(size) {
+    await this.asyncifier(this.storeIt, "async_storage", size);
+  }
+
+  async async_ajax(size) {
+    await this.asyncifier(this.xhrReq, "async_ajax", size);
+  }
+
+  async async_fetch(size) {
+    await this.asyncifier(this.junkFetch, "async_fetch", size);
   }
 }
 
@@ -144,13 +195,7 @@ const setupDemos = () => {
   console.log("setting the listeners");
   const demos = new Demos();
   demos.setupTabbing();
-  demos.onBubbledClick([
-    "vanillacpu",
-    "vanillastorage",
-    "vanillaajax",
-    "vanillafetch",
-    "promisescpu"
-  ]);
+  demos.onBubbledClick(["vanilla", "promises", "async"]);
 };
 
 if (
