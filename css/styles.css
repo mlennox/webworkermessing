@@ -68,13 +68,14 @@ main {
   list-style-type: none;
 }
 
-#tabber li:hover {
+#tabber li:hover,
+#tabber li.open {
   background: white;
   color: black;
 }
 
 .gyrating-rodents,
-.code {
+#code {
   background: linear-gradient(
     135deg,
     #e2e2e2 0%,
@@ -85,6 +86,10 @@ main {
   border-radius: 1rem;
   box-shadow: black 0rem 0 2rem;
   padding: 1rem;
+}
+
+#code article.hidden {
+  display: none;
 }
 
 .gyrating-rodents {

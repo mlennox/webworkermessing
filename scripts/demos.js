@@ -2,8 +2,26 @@ class Demos {
   constructor() {
     this.someDoc = this.generateDoc(1000);
     this.notifier = document.getElementById("notifier");
+  }
+
+  setupTabbing() {
     this.tabber = document.getElementById("tabber");
-    this.tabs = this.tabber.getElementsByTagName("li");
+    const tabs_nav = this.tabber.getElementsByTagName("li");
+    const tabs_content = document
+      .getElementById("code")
+      .getElementsByTagName("article");
+    this.tabs = {};
+    for (let tab of tabs_nav) {
+      let target = tab.dataset.target;
+      this.tabs[target] = {
+        nav: tab
+      };
+    }
+    for (let tab of tabs_content) {
+      let target = tab.id;
+      this.tabs[target].content = tab;
+    }
+    this.tabListeners();
   }
 
   notify(message) {
@@ -13,14 +31,23 @@ class Demos {
   }
 
   tabListeners() {
-    document.getElementById("tabber").addEventListener("click", event => {
+    this.tabber.addEventListener("click", event => {
       if (event.target.tagName === "LI") {
         let tab_to_focus = event.target.dataset.target;
+        this.changeTab(tab_to_focus);
       }
     });
   }
 
-  changeTab(tab) {}
+  changeTab(focus_tab) {
+    for (let tab of Object.keys(this.tabs)) {
+      console.log(tab);
+      this.tabs[tab].nav.className = "";
+      this.tabs[tab].content.className = "hidden";
+    }
+    this.tabs[focus_tab].nav.className = "open";
+    this.tabs[focus_tab].content.className = "";
+  }
 
   /**
    * attaches listener to a container to catch bubbled clicks
@@ -116,7 +143,7 @@ class Demos {
 const setupDemos = () => {
   console.log("setting the listeners");
   const demos = new Demos();
-  demos.tabListeners();
+  demos.setupTabbing();
   demos.onBubbledClick([
     "vanillacpu",
     "vanillastorage",
