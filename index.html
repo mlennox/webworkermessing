@@ -18,18 +18,18 @@
         </section>
         <section class="code">
             <nav>
-                <!-- will add tabbed nav here -->
+                <ul id="tabber">
+                    <li data-target="vanilla">Vanilla</li>
+                    <li data-target="promises">Promises</li>
+                    <li data-target="async">Async</li>
+                    <li data-target="workers">Workers</li>
+                </ul>
             </nav>
             <article id="vanilla">
                 <h1>Vanilla (mmm, vanilla...)</h1>
-                <!-- <ul>
-                    <li>garbage collection</li>
-                    <li>big calc</li>
-                    <li>localstorage</li>
-                    <li>AJAX</li>
-                </ul> -->
                 <div>
                     <h2>Garbage collection</h2>
+                    <p>???</p>
                 </div>
                 <div id="vanillacpu">
                     <h2>CPU intensity increases!!</h2>
@@ -43,22 +43,32 @@
                     <h2>localstorage - storage, for *local* people</h2>
                     <p>Even browser APIs can hog the thread</p>
 
-                    <button data-size="1000" data-handler="storeIt">Some Jank</button>
+                    <button data-size="5000" data-handler="storeIt">Some Jank</button>
                     <button data-size="10000" data-handler="storeIt">Such Jank, much wow</button>
                 </div>
                 <div id="vanillaajax">
                     <h2>AJAX - tough on Greece</h2>
                     <p>Requesting a bunch of JSON and parsing it to return to the caller</p>
 
-                    <button data-size="10" data-handler="junkFetch">Some Jank</button>
-                    <button data-size="50" data-handler="junkFetch">Such Jank, much wow</button>
+                    <button data-size="500" data-handler="xhrReq">Some Jank</button>
+                    <button data-size="1000" data-handler="xhrReq">Such Jank, much wow</button>
                 </div>
                 <div id="vanillafetch">
                     <h2>Fetch! No take, only throw</h2>
                     <p>Fetch and parse a bunch of JSON using the shiny fetch API</p>
 
-                    <button data-size="20" data-handler="swapiAjax">Some Jank</button>
-                    <button data-size="200" data-handler="swapiAjax">Such Jank, much wow</button>
+                    <button data-size="500" data-handler="junkFetch">Some Jank</button>
+                    <button data-size="1000" data-handler="junkFetch">Such Jank, much wow</button>
+                </div>
+            </article>
+            <article id="promises">
+                <h1>Promised me a miracle</h1>
+                <div id="promisescpu">
+                    <h2>CPU intensity increases!!</h2>
+                    <p>Even with promises janky, CPU-hogging happens</p>
+
+                    <button data-size="10000000" data-handler="bigCalcPromised">Some Jank</button>
+                    <button data-size="100000000" data-handler="bigCalcPromised">Such Jank, much wow</button>
                 </div>
             </article>
         </section>

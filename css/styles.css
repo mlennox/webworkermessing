@@ -35,7 +35,7 @@ body {
     transform: rotate(0deg) translate(-60rem, -60rem);
   }
   50% {
-    transform: rotate(600deg) translate(60rem, 60rem);
+    transform: rotate(1200deg) translate(60rem, 60rem);
   }
   100% {
     transform: rotate(0deg) translate(-60rem, -60rem);
@@ -48,6 +48,29 @@ main {
   width: 80rem;
   grid-template-columns: 2fr 1fr;
   z-index: 1;
+}
+
+#tabber {
+  display: grid;
+  float: left;
+  grid-gap: 0.2rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0;
+  width: 100%;
+}
+
+#tabber li {
+  background: black;
+  border-radius: 0.2rem;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  list-style-type: none;
+}
+
+#tabber li:hover {
+  background: white;
+  color: black;
 }
 
 .gyrating-rodents,

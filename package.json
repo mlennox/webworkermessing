@@ -4,17 +4,16 @@
   "description": "web and service worker example code",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/ws --rewrite '/swapi/* -> https://swapi.co/api/people/$1'",
+    "start": "./node_modules/.bin/ws --mocks ./scripts/mock.js",
+    "startswapi":
+      "./node_modules/.bin/ws --mocks ./scripts/mock.js --rewrite '/swapi/* -> https://swapi.co/api/people/$1'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mlennox/webworkermessing.git"
   },
-  "keywords": [
-    "webworker",
-    "serviceworker"
-  ],
+  "keywords": ["webworker", "serviceworker"],
   "author": "mlennox",
   "license": "ISC",
   "bugs": {

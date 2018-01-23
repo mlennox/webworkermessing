@@ -2,6 +2,8 @@ class Demos {
   constructor() {
     this.someDoc = this.generateDoc(1000);
     this.notifier = document.getElementById("notifier");
+    this.tabber = document.getElementById("tabber");
+    this.tabs = this.tabber.getElementsByTagName("li");
   }
 
   notify(message) {
@@ -9,6 +11,16 @@ class Demos {
       this.notifier.innerText = message || "...";
     }
   }
+
+  tabListeners() {
+    document.getElementById("tabber").addEventListener("click", event => {
+      if (event.target.tagName === "LI") {
+        let tab_to_focus = event.target.dataset.target;
+      }
+    });
+  }
+
+  changeTab(tab) {}
 
   /**
    * attaches listener to a container to catch bubbled clicks
@@ -39,6 +51,22 @@ class Demos {
       Math.random();
     }
     this.notify(`bigCalc : for ${size} it took ${Date.now() - start}ms`);
+  }
+
+  bigCalcPromised(size) {
+    this.notify();
+    const start = Date.now();
+    size = size || 10000;
+    new Promise((res, rej) => {
+      for (let i = 0; i < size; i++) {
+        Math.random();
+      }
+      res();
+    }).then(() => {
+      this.notify(
+        `bigCalcPromised : for ${size} it took ${Date.now() - start}ms`
+      );
+    });
   }
 
   generateDoc(limit) {
@@ -72,22 +100,30 @@ class Demos {
     this.notify(`junkFetch : for ${size} it took ${Date.now() - start}ms`);
   }
 
-  //   reqFetch(size) {
-  //     function reqListener () {
-  //         console.log(this.responseText);
-  //       }
-
-  //       var oReq = new XMLHttpRequest();
-  //       oReq.addEventListener("load", reqListener);
-  //       oReq.open("GET", "http://www.example.org/example.txt");
-  //       oReq.send();
-  //   }
+  xhrReq(size) {
+    this.notify();
+    const start = Date.now();
+    size = size || 1000;
+    let request = new XMLHttpRequest();
+    for (let i = 0; i < size; i++) {
+      request.open("GET", "/junk/", true);
+      request.send(null);
+    }
+    this.notify(`xhrReq : for ${size} it took ${Date.now() - start}ms`);
+  }
 }
 
 const setupDemos = () => {
   console.log("setting the listeners");
   const demos = new Demos();
-  demos.onBubbledClick(["vanillacpu", "vanillastorage", "vanillaajax"]);
+  demos.tabListeners();
+  demos.onBubbledClick([
+    "vanillacpu",
+    "vanillastorage",
+    "vanillaajax",
+    "vanillafetch",
+    "promisescpu"
+  ]);
 };
 
 if (
