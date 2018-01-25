@@ -2,8 +2,8 @@ class Demos {
   constructor() {
     this.someDoc = this.generateDoc(1000);
     this.notifier = document.getElementById("notifier");
-    this.worker = new Worker("worker.js");
-    this.worker.onmessage = handleWorkerMessage;
+    this.worker = new Worker("./scripts/worker.js");
+    this.worker.onmessage = this.handleWorkerMessage.bind(this);
     // = function(e) {
     // 	result.textContent = e.data;
     // 	console.log('Message received from worker');
@@ -92,18 +92,9 @@ class Demos {
     this.notify(`${name} : for ${size} it took ${Date.now() - start}ms`);
   }
 
-  workerify(fn, name, size) {
-    let message = {
-      start: Date.now(),
-      fn: data => fn,
-      size: size,
-      name: name
-    };
-    this.worker.postMessage(message);
-  }
-
   handleWorkerMessage(message) {
-    this.notify(message.data.reply);
+    console.log('message from worker : ', message);
+    this.notify(message.data);
   }
 
   generateDoc(limit) {
@@ -211,20 +202,19 @@ class Demos {
   }
 
   workers_cpu(size) {
-    let fn = data => {
-      this.bigCalc(data.size);
-      return `${data.name} : for ${data.size} it took ${Date.now() -
-        data.start}ms`;
-    };
-    this.workerify(this.bigCalc, "workers_cpu", size);
+    this.worker.postMessage({
+      size
+    });
   }
+
+  
 }
 
 const setupDemos = () => {
   console.log("setting the listeners");
   const demos = new Demos();
   demos.setupTabbing();
-  demos.onBubbledClick(["vanilla", "promises", "async"]);
+  demos.onBubbledClick(["vanilla", "promises", "async", "workers"]);
 };
 
 if (
